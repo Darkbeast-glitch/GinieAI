@@ -1,4 +1,4 @@
-# GinieAI: Your AI-Powered Content Creation Companion
+# GinieAI: Your Magical African Genie
 
 ## Overview
 
