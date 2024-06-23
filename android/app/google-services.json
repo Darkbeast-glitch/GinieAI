@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "109363853",
+    "project_id": "ginieai",
+    "storage_bucket": "ginieai.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109363853:android:f15543ca15cde02fb9d8c4",
+        "android_client_info": {
+          "package_name": "com.ginieai.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2rvwEVxa3V_NtTerns7EntQCLBVNtMQ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
