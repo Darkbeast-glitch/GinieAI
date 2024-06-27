@@ -1,13 +1,19 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ginie_ai/components/constants.dart';
 import 'package:ginie_ai/firebase_options.dart';
-import 'package:ginie_ai/services/auth_gate.dart';
+import 'package:ginie_ai/pages/ai_chat_page.dart';
+import 'package:ginie_ai/pages/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -16,6 +22,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // ... other properties
+      routes: {
+        '/chat': (context) => const ChatPage(),
+      },
       debugShowCheckedModeBanner: false,
       title: "GinieAI",
       theme: ThemeData(
@@ -33,7 +43,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const AuthGate(),
+      home: const SplashScreen(),
     );
   }
 }

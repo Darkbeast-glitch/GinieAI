@@ -35,7 +35,13 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   CircularProgressIndicator(),
-                  Text("Processing..."),
+                  Text(
+                    textAlign: TextAlign.center,
+                    "Processing...",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'Product Sans Regular'),
+                  ),
                 ],
               ),
             ),
@@ -49,10 +55,10 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.of(context).pop(); // Close the dialog
 
       if (result == 'Success') {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const ChatPage(),
-          ),
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const ChatPage()),
+          (Route<dynamic> route) =>
+              false, // Remove all routes below the ChatPage
         );
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(

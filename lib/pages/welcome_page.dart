@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:ginie_ai/components/button.dart';
 import 'package:ginie_ai/components/constants.dart';
+import 'package:ginie_ai/pages/ai_assist_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -26,7 +27,7 @@ class WelcomePage extends StatelessWidget {
 
         const Text("Welcome to Ginie Assist",
             style: TextStyle(fontFamily: "Product Sans Regular", fontSize: 28)),
-        const Gap(20),
+        const Gap(15),
 
         // subtext saying start chating with
         const Text("start chatting with our the finest African Ginie",
@@ -34,7 +35,16 @@ class WelcomePage extends StatelessWidget {
         const Gap(20),
 
         // whide button with startchat
-        const MyWideButton(text: "Start Chat", color: AppConstants.primaryColor)
+        MyWideButton(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const AiAssistPage(),
+                ),
+              );
+            },
+            text: "Start Chat",
+            color: AppConstants.primaryColor)
 
         // navigation bar with chat, Ai Assistants, history and profile
       ],

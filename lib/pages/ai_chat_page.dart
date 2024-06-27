@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ginie_ai/pages/AIoptions/all_ai_screen.dart';
 // import 'package:gap/gap.dart';
 // import 'package:ginie_ai/components/button.dart';
 // import 'package:ginie_ai/components/constants.dart';
-import 'package:ginie_ai/pages/ai_assist_page.dart';
 import 'package:ginie_ai/pages/chat_history_page.dart';
 import 'package:ginie_ai/pages/profile_page.dart';
 import 'package:ginie_ai/pages/welcome_page.dart';
@@ -38,8 +38,8 @@ class _ChatPageState extends State<ChatPage> {
               color: Colors.white,
               fontSize: 20,
               fontFamily: "Product Sans Regular"),
-          title: const Text("GinieAI🧞",
-              style: TextStyle(fontFamily: "Product Sans Regular")),
+          title: const Text("GinieAI 🧞",
+              style: TextStyle(fontFamily: "Product Sans Bold", fontSize: 25)),
           //center
           centerTitle: true,
         ),
@@ -52,7 +52,7 @@ class _ChatPageState extends State<ChatPage> {
           },
           children: const <Widget>[
             WelcomePage(),
-            AiAssistPage(),
+            AllAssistants(),
             ChatHistoryPage(),
             ProfilePage(),
           ],

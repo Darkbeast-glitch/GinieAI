@@ -41,16 +41,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     const OnboardingInfo(
       heading: 'Welcome to GinieAI🧞',
       subheading:
-          'Say a wish, and watch our Ultimate Ginie grant them for you.',
+          'Say a wish, and watch our Ultimate Ginie grant \nthem for you.Let Ginie be your companion.',
     ),
     const OnboardingInfo(
       heading: 'Book a Ride 🚕.',
-      subheading: 'Simple book a ride with your voice.',
+      subheading:
+          'Hate to  open the you rider app to book a ride?.\nSimply book a ride with your just a voice command.',
     ),
     const OnboardingInfo(
       heading: 'Ginie for Ghana 🇬🇭',
       subheading:
-          'Say a wish, and watch our Ultimate Ginie grant them for you.',
+          'Love to command with your local dialect?, Speak Twi to Ginie and watch it respond to your commands.',
     ),
   ];
 
@@ -124,6 +125,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                 curve: Curves.easeIn),
                             text: "Skip",
                             color: const Color(0xFF28374e),
+                          ),
+                          const SizedBox(
+                            width: 5,
                           ),
                           MyButton(
                             onTap: () {
