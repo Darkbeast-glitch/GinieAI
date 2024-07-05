@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 
 class AuthService {
   Future<String?> registration({
@@ -6,10 +8,18 @@ class AuthService {
     required String password,
   }) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      await FirebaseChatCore.instance.createUserInFirestore(
+        types.User(
+          id: credential.user!.uid,
+        ),
+      );
+
       return 'Success';
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -24,12 +34,9 @@ class AuthService {
     }
   }
 
-  // logout
   Future<void> logout() async {
     await FirebaseAuth.instance.signOut();
   }
-
-  // login
 
   Future<String?> login({
     required String email,

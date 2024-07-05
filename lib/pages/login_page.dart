@@ -19,7 +19,6 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
   final AuthService _authService = AuthService();
 
   Future<void> _loginUser() async {
@@ -35,8 +34,8 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   CircularProgressIndicator(),
+                  SizedBox(width: 20),
                   Text(
-                    textAlign: TextAlign.center,
                     "Processing...",
                     style: TextStyle(
                         color: Colors.black,
@@ -57,8 +56,7 @@ class _LoginPageState extends State<LoginPage> {
       if (result == 'Success') {
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => const ChatPage()),
-          (Route<dynamic> route) =>
-              false, // Remove all routes below the ChatPage
+          (Route<dynamic> route) => false,
         );
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -80,197 +78,128 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: AppConstants.backgroundColor,
-        body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Let's get starget text
-              const Spacer(
-                flex: 2,
-              ),
-
-              const Text("Hello Again", style: AppConstants.titleTextStyle),
-
-              //sub text talking about how they can login
-              const SizedBox(
-                height: 20,
-              ),
-
-              const Text(
-                textAlign: TextAlign.center,
-                "Welcome back, You've been \nmissed",
-                style: AppConstants.subtitleTextStyle,
-              ),
-
-              const SizedBox(
-                height: 40,
-              ),
-
-              // a  text field with a leading icon eamil
-              SizedBox(
-                width: MediaQuery.of(context).size.width *
-                    0.8, // 80% of screen width
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      MyTextForm(
-                        controller: _emailController,
-                        hintText: " Enter with your email ",
-                        obsecureText: false,
-                        prefix: const Icon(
-                          Icons.email,
-                        ),
-                        // errorText: "Please enter your email",
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      // password field
-                      MyTextForm(
-                        controller: _passwordController,
-                        obsecureText: true,
-                        hintText: " Enter your Password",
-                        prefix: const Icon(Icons.password_rounded),
-                        errorText: "Please enter your password",
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ForgotPassword(),
-                    ),
-                  );
-                },
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      resizeToAvoidBottomInset: false,
+      backgroundColor: AppConstants.backgroundColor,
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Spacer(flex: 2),
+            const Text("Hello Again", style: AppConstants.titleTextStyle),
+            const SizedBox(height: 20),
+            const Text(
+              "Welcome back, You've been missed",
+              textAlign: TextAlign.center,
+              style: AppConstants.subtitleTextStyle,
+            ),
+            const SizedBox(height: 40),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: Form(
+                key: _formKey,
+                child: Column(
                   children: [
-                    Text("Forgot Password?",
-                        style: TextStyle(
-                          fontFamily: "Product Sans Regular",
-                          fontSize: 14,
-                        )),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              MyWideButton(
-                text: "Login",
-                color: AppConstants.primaryColor,
-                onTap: _loginUser,
-              ),
-              const Spacer(),
-              //or Use instant  Sign Up text
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [Text("  Or use  instant Sign Up option")],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-
-              //a container button with a gray border with leading google icone saying Sign with Google
-              Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    SvgPicture.asset(
-                      'assets/images/google.svg',
-                      height: 30,
+                    MyTextForm(
+                      controller: _emailController,
+                      hintText: "Enter your email",
+                      obsecureText: false,
+                      prefix: const Icon(Icons.email),
                     ),
-                    const SizedBox(width: 10),
-                    const Text(
-                      'Sign In with Google',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontFamily: "Product Sans Regular"),
+                    const SizedBox(height: 30),
+                    MyTextForm(
+                      controller: _passwordController,
+                      obsecureText: true,
+                      hintText: "Enter your password",
+                      prefix: const Icon(Icons.lock),
+                      errorText: "Please enter your password",
                     ),
                   ],
                 ),
               ),
-              // a container button with a gray border with a leading Githb icon syaing sign in with Github
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width *
-                    0.8, // 80% of screen width
-
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    SvgPicture.asset(
-                      'assets/images/git.svg',
-                      height: 30,
-                    ),
-                    const SizedBox(width: 10),
-                    const Text(
-                      'Sign in with GitHub',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontFamily: "Product Sans Regular"),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              // already have an account text?
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    " Don't have an Account?",
-                    style: TextStyle(fontFamily: 'Product Sans Regular'),
+            ),
+            const SizedBox(height: 10),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ForgotPassword(),
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const RegisterPage(),
-                          ),
-                        );
-                      },
-                      child: const Text("Create account",
-                          style: TextStyle(
-                              fontFamily: 'Product Sans Regular',
-                              color: Colors.blue)))
-                ],
+                );
+              },
+              child: const Text(
+                "Forgot Password?",
+                style: TextStyle(
+                  fontFamily: "Product Sans Regular",
+                  fontSize: 14,
+                ),
               ),
-              const Spacer(),
-            ],
+            ),
+            const SizedBox(height: 30),
+            MyWideButton(
+              text: "Login",
+              color: AppConstants.primaryColor,
+              onTap: _loginUser,
+            ),
+            const Spacer(),
+            const Text("Or use instant Sign Up option"),
+            const SizedBox(height: 20),
+            _buildSignInButton(
+                'assets/images/google.svg', 'Sign In with Google'),
+            const SizedBox(height: 20),
+            _buildSignInButton('assets/images/git.svg', 'Sign in with GitHub'),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Don't have an Account?",
+                    style: TextStyle(fontFamily: 'Product Sans Regular')),
+                const SizedBox(width: 5),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const RegisterPage(),
+                      ),
+                    );
+                  },
+                  child: const Text("Create account",
+                      style: TextStyle(
+                          fontFamily: 'Product Sans Regular',
+                          color: Colors.blue)),
+                ),
+              ],
+            ),
+            const Spacer(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSignInButton(String assetPath, String buttonText) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        border: Border.all(color: Colors.grey),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          SvgPicture.asset(assetPath, height: 30),
+          const SizedBox(width: 10),
+          Text(
+            buttonText,
+            style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontFamily: "Product Sans Regular"),
           ),
-        ));
+        ],
+      ),
+    );
   }
 }

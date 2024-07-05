@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ginie_ai/pages/AIoptions/all_ai_screen.dart';
-// import 'package:gap/gap.dart';
-// import 'package:ginie_ai/components/button.dart';
-// import 'package:ginie_ai/components/constants.dart';
 import 'package:ginie_ai/pages/chat_history_page.dart';
 import 'package:ginie_ai/pages/profile_page.dart';
 import 'package:ginie_ai/pages/welcome_page.dart';
+import 'package:ginie_ai/services/firestore_service.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -15,8 +14,30 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  int _currendIndex = 0;
+  int _currentIndex = 0;
   final PageController _pageController = PageController();
+  final FirestoreService _firestoreService = FirestoreService();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkChatHistory();
+  }
+
+  Future<void> _checkChatHistory() async {
+    User? firebaseUser = _auth.currentUser;
+    if (firebaseUser != null) {
+      bool hasHistory =
+          await _firestoreService.hasChatHistory(firebaseUser.uid);
+      if (hasHistory) {
+        setState(() {
+          _currentIndex = 2; // Set to ChatHistoryPage index
+        });
+        _pageController.jumpToPage(2);
+      }
+    }
+  }
 
   @override
   void dispose() {
@@ -28,26 +49,22 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          // appbart title
           elevation: 0,
           backgroundColor: Colors.transparent,
-          iconTheme: const IconThemeData(
-              color: Colors
-                  .white), // This will change the color of the AppBar icons to white
+          iconTheme: const IconThemeData(color: Colors.white),
           titleTextStyle: const TextStyle(
               color: Colors.white,
               fontSize: 20,
               fontFamily: "Product Sans Regular"),
           title: const Text("GinieAI 🧞",
               style: TextStyle(fontFamily: "Product Sans Bold", fontSize: 25)),
-          //center
           centerTitle: true,
         ),
         body: PageView(
           controller: _pageController,
           onPageChanged: (index) {
             setState(() {
-              _currendIndex = index;
+              _currentIndex = index;
             });
           },
           children: const <Widget>[
@@ -72,10 +89,10 @@ class _ChatPageState extends State<ChatPage> {
             child: BottomNavigationBar(
               selectedItemColor: Colors.white,
               unselectedItemColor: Colors.white.withOpacity(0.6),
-              currentIndex: _currendIndex,
+              currentIndex: _currentIndex,
               onTap: (index) {
                 setState(() {
-                  _currendIndex = index;
+                  _currentIndex = index;
                   _pageController.jumpToPage(index);
                 });
               },
